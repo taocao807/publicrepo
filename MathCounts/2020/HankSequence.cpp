@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ bool isNext(int n, int M, vector<int>& result)
             }
         }
     }
+    
     return true;
 }
 
@@ -41,22 +43,34 @@ std::string numberInBase(int n, int b)
 }
 
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
     vector<int> result;
     result.push_back(1);
     result.push_back(2);
     int N = 729;
     int Base = 10;
-    if (argc > 1)
-    {
-        N = std::stoi(argv[1]);
-    }
+    bool subtract = false;
     int M = 0;
-    if (argc > 2) {
-        int n = std::atoi(argv[2]);
-        if (n == -3) Base = 3;
-        if (n > 0) M = n;
+
+    for (int i = 1; i < argc; ++i)
+    {
+        if (std::string(argv[i]) == "--upper" && i+1 < argc)
+        {
+            N = std::stoi(argv[i+1]);
+        }
+        else if (std::string(argv[i]) == "--base")
+        {
+            Base = 3;
+        }
+        else if (std::string(argv[i]) == "--subtract")
+        {
+            subtract = true;
+        }
+        else if (std::string(argv[i]) == "--check" && i+1 < argc)
+        {
+            M = std::stoi(argv[i+1]);
+        }
     }
 
     for (int i = 3; i <= N; ++i)
@@ -71,7 +85,8 @@ int main(int argc, char** argv)
 
     for (size_t i = 0; i < result.size(); ++i)
     {
-        std::string v = numberInBase(result[i], Base);
+        int n = subtract ? result[i] - 1 : result[i];
+        std::string v = numberInBase(n, Base);
         std::cout << v << " " ;
        
         if (i%8 == 0 && i != 0) std::cout << std::endl; 
