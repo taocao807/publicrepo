@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stdio.h>
 
 using namespace std;
 
@@ -27,12 +28,16 @@ bool isNext(int n, int M, vector<int>& result)
 
 std::string numberInBase(int n, int b)
 {
-    if (b == 10) return std::to_string(n);
-
     std::string result;
+    if (n == 0) return "0";
+
     int count = 0;
     while (count < 6)
     {
+      if (n == 0) {
+         return result;
+      }
+
       int rem = n%b;
       result = std::to_string(rem) + result;
       n = n/b; 
@@ -59,9 +64,9 @@ int main(int argc, char* argv[])
         {
             N = std::stoi(argv[i+1]);
         }
-        else if (std::string(argv[i]) == "-base")
+        else if (std::string(argv[i]) == "-base" && i < argc -1)
         {
-            Base = 3;
+            Base = std::stoi(argv[i+1]);
         }
         else if (std::string(argv[i]) == "-subtract")
         {
@@ -85,11 +90,22 @@ int main(int argc, char* argv[])
 
     for (size_t i = 0; i < result.size(); ++i)
     {
+        if (i != 0 && i%8 == 0) std::cout << std::endl;
+
         int n = subtract ? result[i] - 1 : result[i];
         std::string v = numberInBase(n, Base);
-        std::cout << v << " " ;
-       
-        if (i%8 == 0 && i != 0) std::cout << std::endl; 
+        if (Base == 10) 
+        {
+            std::string w("      ");
+            w = w.substr(0, 6-v.length()) + v;
+            std::cout << w;
+        }
+        else
+        {
+            std::string w("000000");
+            w = w.substr(0, 6-v.length()) + v;
+            std::cout << w << " ";
+        }
     }
 
     std::cout << std::endl;
