@@ -38,6 +38,8 @@ class HankSequence
 
         ArrayList<Integer> result = h.BuildHankSequence(start, n, M);
 
+        if (M > 0) return;
+
         System.out.println("There are " + result.size() + " terms:");
 
         for (int i = 0; i < result.size(); i++)
