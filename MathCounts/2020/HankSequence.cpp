@@ -55,19 +55,19 @@ int main(int argc, char* argv[])
 
     for (int i = 1; i < argc; ++i)
     {
-        if (std::string(argv[i]) == "--upper" && i+1 < argc)
+        if (std::string(argv[i]) == "-upper" && i+1 < argc)
         {
             N = std::stoi(argv[i+1]);
         }
-        else if (std::string(argv[i]) == "--base")
+        else if (std::string(argv[i]) == "-base")
         {
             Base = 3;
         }
-        else if (std::string(argv[i]) == "--subtract")
+        else if (std::string(argv[i]) == "-subtract")
         {
             subtract = true;
         }
-        else if (std::string(argv[i]) == "--check" && i+1 < argc)
+        else if (std::string(argv[i]) == "-check" && i+1 < argc)
         {
             M = std::stoi(argv[i+1]);
         }
